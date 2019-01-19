@@ -165,6 +165,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         if (text.equals(KEYPHRASE)) {
             Toast.makeText(getApplicationContext(), "Partial - Voice recognition success!",
                     Toast.LENGTH_LONG).show();
+            recognizer.stop();
+            recognizer.startListening(KWS_SEARCH);
             //playAlarm();
         }
 
@@ -202,8 +204,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 */
     @Override
     public void onEndOfSpeech() {
-        if (!recognizer.getSearchName().equals(KWS_SEARCH))
+        if (!recognizer.getSearchName().equals(KWS_SEARCH)) {
+            recognizer.stop();
             recognizer.startListening(KWS_SEARCH);
+        }
     }
 
     @Override
@@ -217,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     @Override
     public void onTimeout() {
+        recognizer.stop();
         recognizer.startListening(KWS_SEARCH);
     }
 }
