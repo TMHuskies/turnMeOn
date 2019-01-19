@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         });
 
         // Listen to Activate Button
-        ImageButton activate = findViewById(R.id.activateButton);
+        Button activate = findViewById(R.id.activateButton);
         activate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             }
         });
     }
-    
+
     //Deactivates recognizer and media player.
     private void deactivateApp() {
         if (recognizer != null) {
@@ -208,6 +207,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             playAlarm();
             //recognizer.startListening(KWS_SEARCH);
 
+            recognizer.startListening(KWS_SEARCH);
+            //playAlarm();
         }
     }
 
