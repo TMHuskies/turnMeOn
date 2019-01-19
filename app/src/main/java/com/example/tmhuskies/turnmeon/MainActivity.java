@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         responseBtn = findViewById(R.id.responseButton);
         savedSettings = getSharedPreferences("userPref", MODE_PRIVATE);
 
