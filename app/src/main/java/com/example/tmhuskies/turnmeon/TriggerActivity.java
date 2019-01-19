@@ -14,7 +14,7 @@ public class TriggerActivity extends AppCompatActivity {
 
     private ImageButton confirmButton;
     private EditText triggerText;
-    private SharedPreferences savedCodeWord;
+    private SharedPreferences savedSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +24,16 @@ public class TriggerActivity extends AppCompatActivity {
         // Set up variables
         confirmButton = findViewById(R.id.confirmTrigger);
         triggerText = findViewById(R.id.enterTriggerText);
-        savedCodeWord = getSharedPreferences("userPref", MODE_PRIVATE);
+        savedSettings = getSharedPreferences("userPref", MODE_PRIVATE);
 
         confirmButton.setOnClickListener(confirmButtonListener);
     }
 
     // Grab the string and save onto SharedPreferences
     private void saveCodeWord(String code) {
-        SharedPreferences.Editor preferencesEditor = savedCodeWord.edit();
+        SharedPreferences.Editor preferencesEditor = savedSettings.edit();
         preferencesEditor.putString("codeWord", code);
-        preferencesEditor.commit();
+        preferencesEditor.apply();
     }
 
     // Listen on confirm button to save the codeword onto SharedPreferences.
