@@ -8,14 +8,12 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -103,6 +101,15 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                         Toast.LENGTH_LONG).show();
                 runRecognizerSetup(code, audioPath);
 
+            }
+        });
+
+        // Listen from Deactivate button
+        Button deactivate = findViewById(R.id.deactivateButton);
+        deactivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deactivateApp();
             }
         });
     }
@@ -211,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             playAlarm();
             //recognizer.startListening(KWS_SEARCH);
 
+            recognizer.startListening(KWS_SEARCH);
+            //playAlarm();
         }
     }
 
