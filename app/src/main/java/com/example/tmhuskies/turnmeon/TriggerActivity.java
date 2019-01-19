@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class TriggerActivity extends AppCompatActivity {
 
@@ -40,10 +41,13 @@ public class TriggerActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if(!triggerText.getText().toString().isEmpty()) {
-                saveCodeWord(triggerText.getText().toString());
+                Toast.makeText(getApplicationContext(), "Trigger word updated!",
+                        Toast.LENGTH_LONG).show();
 
+                saveCodeWord(triggerText.getText().toString());
                 ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(triggerText.getWindowToken(),0);
+
             }
         }
     };
