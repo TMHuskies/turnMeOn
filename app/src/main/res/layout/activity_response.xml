@@ -8,7 +8,7 @@
     tools:context=".ResponseActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/projects_list"
+        android:id="@+id/response_list"
         android:layout_width="match_parent"
         android:layout_height="526dp"
         android:layout_marginBottom="8dp"
