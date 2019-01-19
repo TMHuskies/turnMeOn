@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private static final String KWS_SEARCH = "CODE-WORD";
     private String KEYPHRASE = "hello phone";
     private String AUDIOFILE = AudioFiles.track1;
+    MediaPlayer player;
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
@@ -101,6 +102,20 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
             }
         });
+    }
+    
+    //Deactivates recognizer and media player.
+    private void deactivateApp() {
+        if (recognizer != null) {
+            recognizer.stop();
+        }
+
+        if (player.isPlaying()) {
+            player.stop();
+        }
+
+        Toast.makeText(getApplicationContext(), "TurnMeOn Deactivated!",
+                Toast.LENGTH_LONG).show();
     }
 
     private void runRecognizerSetup(String codeword, String audioPath) {
@@ -197,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     }
 
     private void playAlarm() {
-        MediaPlayer player;
 
         switch (AUDIOFILE) {
         case AudioFiles.track1:
@@ -226,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         try {
             player.setVolume(100, 100);
             player.setLooping(true);
-//            playerr.prepare();
+//            player.prepare();
             player.start();
         } catch (Exception e) {
             e.printStackTrace();
