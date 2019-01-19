@@ -37,14 +37,11 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
     private SpeechRecognizer recognizer;
-    private Button responseBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        responseBtn = findViewById(R.id.responseButton);
 
         savedSettings = getSharedPreferences("userPref", MODE_PRIVATE);
 
