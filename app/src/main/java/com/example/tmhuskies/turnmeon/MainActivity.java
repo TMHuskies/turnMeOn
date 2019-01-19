@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,9 +31,10 @@ import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
 
     private SharedPreferences savedSettings;
-    private static final String KWS_SEARCH = "wake up";
-    private static final String KEYPHRASE = "hello phone";
-    private static Button responseBtn;
+    private static final String KWS_SEARCH = "CODE-WORD";
+    private String KEYPHRASE = "hello phone";
+    private String AUDIOFILE = AudioFiles.track1;
+    MediaPlayer player;
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
 
@@ -43,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        responseBtn = findViewById(R.id.responseButton);
         savedSettings = getSharedPreferences("userPref", MODE_PRIVATE);
 
         // Check if user granted permission to record audio.
@@ -76,17 +76,13 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         });
 
         // Listen to Activate Button
-        final Button activate = findViewById(R.id.activateButton);
+        Button activate = findViewById(R.id.activateButton);
         activate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.activateButton) {
-                    activate.setText("Deactivate");
-
-                }
                 String code = savedSettings.getString("codeWord", null);
                 String audioPath = savedSettings.getString("responseAudio", null);
-/*
+
                 if (code == null) {
                     Toast.makeText(getApplicationContext(), "Please set your Trigger Word!",
                             Toast.LENGTH_LONG).show();
@@ -98,17 +94,34 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-*/
+
                 // Activate PocketSphinx in the background
                 Toast.makeText(getApplicationContext(), "TurnMeOn Activated!",
                         Toast.LENGTH_LONG).show();
-                runRecognizerSetup();
+                runRecognizerSetup(code, audioPath);
 
             }
         });
     }
 
-    private void runRecognizerSetup() {
+    //Deactivates recognizer and media player.
+    private void deactivateApp() {
+        if (recognizer != null) {
+            recognizer.stop();
+        }
+
+        if (player.isPlaying()) {
+            player.stop();
+        }
+
+        Toast.makeText(getApplicationContext(), "TurnMeOn Deactivated!",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void runRecognizerSetup(String codeword, String audioPath) {
+
+        this.KEYPHRASE = codeword;
+        this.AUDIOFILE = audioPath;
 
         // Recognizer initialization is a time-consuming and it involves IO,
         // so we execute it in async task
@@ -152,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     }
 
     private void setupRecognizer(File assetsDir) throws IOException {
-        float thres = (float)(1 * Math.pow(10, -20));
+        float thres = (float)(1 * Math.pow(10, -18));
 
         recognizer = SpeechRecognizerSetup.defaultSetup()
                 .setAcousticModel(new File(assetsDir, "en-us-ptm"))
@@ -192,28 +205,48 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             Toast.makeText(getApplicationContext(), "onResult - recognition success!",
                     Toast.LENGTH_LONG).show();
             recognizer.stop();
+            playAlarm();
+            //recognizer.startListening(KWS_SEARCH);
 
-            recognizer.startListening(KWS_SEARCH);
-            //playAlarm();
         }
     }
-/*
-    // Unhandled exception
+
     private void playAlarm() {
-        MediaPlayer player = MediaPlayer.create(getBaseContext(), uri);
+
+        switch (AUDIOFILE) {
+        case AudioFiles.track1:
+            player = MediaPlayer.create(this, R.raw.smrt_door_closing);
+            break;
+        case AudioFiles.track2:
+            player = MediaPlayer.create(this, R.raw.gmod_version_1);
+            break;
+        case AudioFiles.track3:
+            player = MediaPlayer.create(this, R.raw.rick_roll);
+            break;
+        case AudioFiles.track4:
+            player = MediaPlayer.create(this, R.raw.my_name_jeff);
+            break;
+        case AudioFiles.track5:
+            player = MediaPlayer.create(this, R.raw.you_on_kazoo);
+            break;
+        default:
+            player = MediaPlayer.create(this, R.raw.smrt_door_closing);
+            break;
+        }
+
         AudioManager am = (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
         am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         am.setStreamVolume(AudioManager.STREAM_MUSIC, am.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
         try {
             player.setVolume(100, 100);
             player.setLooping(true);
-            player.prepare();
+//            player.prepare();
             player.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-*/
+
     @Override
     public void onEndOfSpeech() {
         if (!recognizer.getSearchName().equals(KWS_SEARCH)) {
