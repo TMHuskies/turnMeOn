@@ -8,18 +8,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/activateButton"
-        android:layout_width="372dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="ACTIVATE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/triggerButton"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
@@ -48,5 +36,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/activateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="459dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import edu.cmu.pocketsphinx.SpeechRecognizerSetup;
 public class MainActivity extends AppCompatActivity implements RecognitionListener {
 
     private SharedPreferences savedSettings;
-    private static final String KWS_SEARCH = "wakeup";
+    private static final String KWS_SEARCH = "wake up";
     private static final String KEYPHRASE = "hello phone";
 
     private static final int PERMISSIONS_REQUEST_RECORD_AUDIO = 1;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         });
 
         // Listen to Activate Button
-        Button activate = findViewById(R.id.activateButton);
+        ImageButton activate = findViewById(R.id.activateButton);
         activate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,9 +145,12 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     }
 
     private void setupRecognizer(File assetsDir) throws IOException {
+        float thres = (float)(1 * Math.pow(10, -20));
+
         recognizer = SpeechRecognizerSetup.defaultSetup()
                 .setAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
+                .setKeywordThreshold(thres)
                 .getRecognizer();
 
         recognizer.addListener(this);
@@ -166,8 +170,6 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             Toast.makeText(getApplicationContext(), "Partial - Voice recognition success!",
                     Toast.LENGTH_LONG).show();
             recognizer.stop();
-            recognizer.startListening(KWS_SEARCH);
-            //playAlarm();
         }
 
     }
@@ -182,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         if (text.equals(KEYPHRASE)) {
             Toast.makeText(getApplicationContext(), "onResult - recognition success!",
                     Toast.LENGTH_LONG).show();
+            recognizer.stop();
+
+            recognizer.startListening(KWS_SEARCH);
             //playAlarm();
         }
     }
