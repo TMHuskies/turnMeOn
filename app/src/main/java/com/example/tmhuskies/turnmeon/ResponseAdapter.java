@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,39 +32,20 @@ public class ResponseAdapter extends ArrayAdapter<ResponseOption> {
 
         TextView title = convertView.findViewById(R.id.responseText);
         title.setText(responseOption.getTitle());
+
+        ImageButton playBtn = (ImageButton) convertView.findViewById(R.id.imageButton);
+        playBtn.setTag(position);
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = (Integer) view.getTag();
+                ResponseOption ro = getItem(position);
+                ro.getAudio().start();
+            }
+        });
+
         return convertView;
     }
-/*
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_response, parent, false);
-        return new ViewHolder(v);
-    }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ResponseOption responseOption = responseOptions.get(position);
-        holder.titleView.setText(responseOption.getTitle());
-    }
 
-    @Override
-    public int getItemCount() {
-        return responseOptions.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        //View mView;
-        public TextView titleView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            titleView = itemView.findViewById(R.id.responseText);
-            //mView = itemView;
-        }
-        /*public void setTitle(String title){
-            TextView titleView = mView.findViewById(R.id.responseText);
-            titleView.setText(title);
-        }
-    }*/
 }
