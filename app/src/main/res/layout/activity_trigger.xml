@@ -8,7 +8,7 @@
     tools:context=".TriggerActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/enterTriggerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -18,7 +18,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter trigger word"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton2"
+        app:layout_constraintBottom_toTopOf="@+id/confirmTrigger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,20 +26,20 @@
         app:layout_constraintVertical_bias="0.618" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/confirmTrigger"
         android:layout_width="125dp"
         android:layout_height="92dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@color/black_background"
-        app:layout_constraintBottom_toTopOf="@+id/confirmTextView"
+        app:layout_constraintBottom_toTopOf="@+id/confirmText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@mipmap/logo" />
 
     <TextView
-        android:id="@+id/confirmTextView"
+        android:id="@+id/confirmText"
         android:layout_width="67dp"
         android:layout_height="21dp"
         android:layout_marginBottom="88dp"
