@@ -7,4 +7,17 @@
     android:background="#262626"
     tools:context=".ResponseActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/projects_list"
+        android:layout_width="match_parent"
+        android:layout_height="486dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:background="#262626"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_projects"></android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>
