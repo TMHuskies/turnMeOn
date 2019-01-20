@@ -14,4 +14,4 @@ out your trigger word and follow the sound of the alarm which will lead you to y
 - Customizable trigger word
 
 ## Acknowledgements
-Libraries used: https://github.com/cmusphinx/pocketsphinx-android-demo[Pocketsphinx]
+Libraries used: [Pocketsphinx](https://github.com/cmusphinx/pocketsphinx-android-demo)
