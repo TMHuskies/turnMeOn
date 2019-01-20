@@ -13,5 +13,8 @@ out your trigger word and follow the sound of the alarm which will lead you to y
 - Speech recognition
 - Customizable trigger word
 
+## Built With
+`java` `android-studio`
+
 ## Acknowledgements
 Libraries used: [Pocketsphinx](https://github.com/cmusphinx/pocketsphinx-android-demo)
