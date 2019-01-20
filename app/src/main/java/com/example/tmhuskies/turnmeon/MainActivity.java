@@ -116,9 +116,10 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         if (recognizer != null) {
             recognizer.stop();
         }
-
-        if (player.isPlaying()) {
-            player.stop();
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+            }
         }
 
         Toast.makeText(getApplicationContext(), "TurnMeOn Deactivated!",
