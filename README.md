@@ -18,3 +18,6 @@ out your trigger word and follow the sound of the alarm which will lead you to y
 
 ## Acknowledgements
 Libraries used: [Pocketsphinx](https://github.com/cmusphinx/pocketsphinx-android-demo)
+
+## Screen shots
+<img src="./app/src/main/res/images/turnMeOn-Screenshot01.jpg" alt="Welcome Screen"  height="300"> <img src="./app/src/main/res/images/turnMeOn-Screenshot02.jpg" alt="Home Screen"  height="300"> <img src="./app/src/main/res/images/turnMeOn-Screenshot03.jpg" alt="Trigger Screen"  height="300"> <img src="./app/src/main/res/images/turnMeOn-Screenshot04.jpg" alt="Response Screen"  height="300">
